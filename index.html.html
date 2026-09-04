@@ -1,0 +1,1040 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lion Kitchen — San Francisco</title>
+<meta name="description" content="Lion Kitchen — modern, bold cooking in the heart of San Francisco.">
+
+<style>
+  :root{
+    --charcoal: #17130f;
+    --charcoal-2: #1f1a14;
+    --cream: #f2e9d8;
+    --cream-dim: #d8cbb0;
+    --gold: #c98a34;
+    --gold-bright: #e3a94f;
+    --rust: #9c3d28;
+    --olive: #707349;
+    --line: rgba(242,233,216,0.14);
+
+    --serif: "Fraunces", Georgia, "Times New Roman", serif;
+    --sans: "Work Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    --mono: "JetBrains Mono", "Courier New", monospace;
+
+    --maxw: 1180px;
+  }
+
+  @font-face{
+    font-family: "Fraunces";
+    src: local("Fraunces");
+  }
+
+  *,*::before,*::after{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
+
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior: auto; }
+    *,*::before,*::after{ animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
+  }
+
+  body{
+    margin:0;
+    background: var(--charcoal);
+    color: var(--cream);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  img{ max-width:100%; display:block; }
+
+  a{ color: inherit; text-decoration: none; }
+
+  .wrap{ max-width: var(--maxw); margin: 0 auto; padding: 0 28px; }
+
+  h1,h2,h3{
+    font-family: var(--serif);
+    font-weight: 600;
+    margin: 0;
+    letter-spacing: -0.01em;
+  }
+
+  .eyebrow{
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gold-bright);
+  }
+
+  ::selection{ background: var(--gold); color: var(--charcoal); }
+
+  :focus-visible{
+    outline: 2px solid var(--gold-bright);
+    outline-offset: 3px;
+  }
+
+  /* ---------- NAV ---------- */
+  header{
+    position: fixed;
+    top:0; left:0; right:0;
+    z-index: 100;
+    padding: 22px 0;
+    transition: background 0.4s ease, padding 0.4s ease, border-color .4s ease;
+    border-bottom: 1px solid transparent;
+  }
+  header.scrolled{
+    background: rgba(23,19,15,0.92);
+    backdrop-filter: blur(10px);
+    padding: 14px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  nav.wrap{ display:flex; align-items:center; justify-content:space-between; }
+
+  .logo{
+    font-family: var(--serif);
+    font-size: 1.35rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .logo svg{ width:26px; height:26px; flex-shrink:0; }
+
+  .nav-links{
+    display:flex;
+    gap: 36px;
+    list-style:none;
+    margin:0; padding:0;
+  }
+  .nav-links a{
+    font-size: 0.85rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    position: relative;
+    padding-bottom: 4px;
+  }
+  .nav-links a::after{
+    content:"";
+    position:absolute; left:0; bottom:0;
+    width:0; height:1px;
+    background: var(--gold-bright);
+    transition: width .3s ease;
+  }
+  .nav-links a:hover::after{ width:100%; }
+
+  .nav-cta{
+    border:1px solid var(--gold);
+    padding: 10px 20px;
+    font-size: 0.8rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    border-radius: 2px;
+    transition: background .3s ease, color .3s ease;
+    white-space: nowrap;
+  }
+  .nav-cta:hover{ background: var(--gold); color: var(--charcoal); }
+
+  .hamburger{
+    display:none;
+    flex-direction: column;
+    gap:5px;
+    background:none;
+    border:none;
+    cursor:pointer;
+    padding: 8px;
+    z-index: 200;
+  }
+  .hamburger span{
+    width: 24px; height: 2px;
+    background: var(--cream);
+    transition: transform .3s ease, opacity .3s ease;
+  }
+  .hamburger.open span:nth-child(1){ transform: translateY(7px) rotate(45deg); }
+  .hamburger.open span:nth-child(2){ opacity:0; }
+  .hamburger.open span:nth-child(3){ transform: translateY(-7px) rotate(-45deg); }
+
+  .mobile-menu{
+    position: fixed; inset:0;
+    background: var(--charcoal);
+    z-index: 150;
+    display:flex; flex-direction:column;
+    align-items:center; justify-content:center;
+    gap: 34px;
+    transform: translateY(-100%);
+    transition: transform .45s cubic-bezier(.77,0,.18,1);
+  }
+  .mobile-menu.open{ transform: translateY(0); }
+  .mobile-menu a{
+    font-family: var(--serif);
+    font-size: 2rem;
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position: relative;
+    min-height: 100vh;
+    display:flex; align-items:center; justify-content:center;
+    overflow:hidden;
+    text-align:center;
+    padding: 120px 24px 60px;
+    background: var(--charcoal);
+  }
+  .hero-bg{
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+  .hero-bg img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 55%;
+    opacity: 0.55;
+  }
+  .hero-bg::after{
+    content:"";
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 50% 30%, rgba(201,138,52,0.14), transparent 60%),
+      linear-gradient(180deg, rgba(23,19,15,0.55) 0%, rgba(23,19,15,0.75) 55%, var(--charcoal) 100%);
+  }
+  .rays{
+    position:absolute;
+    top:50%; left:50%;
+    width: 1400px; height: 1400px;
+    transform: translate(-50%,-50%);
+    opacity: 0.35;
+    animation: spin 120s linear infinite;
+    pointer-events:none;
+  }
+  @keyframes spin{ to{ transform: translate(-50%,-50%) rotate(360deg); } }
+
+  .hero-inner{ position:relative; z-index:2; max-width: 760px; }
+
+  .hero-inner .eyebrow{ display:inline-block; margin-bottom: 22px; }
+
+  .hero h1{
+    font-size: clamp(3rem, 9vw, 6.2rem);
+    line-height: 0.95;
+    color: var(--cream);
+  }
+  .hero h1 em{
+    font-style: italic;
+    color: var(--gold-bright);
+    font-weight: 500;
+  }
+
+  .hero p.sub{
+    margin: 26px auto 40px;
+    max-width: 480px;
+    color: var(--cream-dim);
+    font-size: 1.05rem;
+  }
+
+  .btn-row{ display:flex; gap:18px; justify-content:center; flex-wrap:wrap; }
+
+  .btn{
+    display:inline-block;
+    padding: 15px 32px;
+    font-size: 0.85rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    border-radius: 2px;
+    transition: transform .3s ease, background .3s ease, color .3s ease, border-color .3s ease;
+  }
+  .btn-solid{
+    background: var(--gold);
+    color: var(--charcoal);
+    border: 1px solid var(--gold);
+  }
+  .btn-solid:hover{ background: var(--gold-bright); transform: translateY(-2px); }
+  .btn-outline{
+    border: 1px solid var(--line);
+    color: var(--cream);
+  }
+  .btn-outline:hover{ border-color: var(--gold-bright); color: var(--gold-bright); transform: translateY(-2px); }
+
+  .scroll-cue{
+    position:absolute;
+    bottom: 34px; left:50%;
+    transform: translateX(-50%);
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--cream-dim);
+    display:flex; flex-direction:column; align-items:center; gap:10px;
+  }
+  .scroll-cue::after{
+    content:"";
+    width:1px; height: 34px;
+    background: linear-gradient(var(--gold-bright), transparent);
+    animation: pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse{ 0%,100%{ opacity:.3; } 50%{ opacity:1; } }
+
+  /* ---------- REVEAL ---------- */
+  .reveal{
+    opacity:0;
+    transform: translateY(28px);
+    transition: opacity .8s ease, transform .8s ease;
+  }
+  .reveal.in{ opacity:1; transform: translateY(0); }
+
+  /* ---------- SECTION SHELL ---------- */
+  section{ padding: 120px 0; position: relative; }
+  .section-head{ margin-bottom: 60px; max-width: 620px; }
+  .section-head .eyebrow{ margin-bottom: 14px; display:block; }
+  .section-head h2{ font-size: clamp(2.1rem, 4vw, 3rem); }
+
+  .divider{
+    height:1px;
+    background: var(--line);
+    border:none;
+    margin:0;
+  }
+
+  /* ---------- ABOUT ---------- */
+  .about{ background: var(--charcoal-2); }
+  .about-grid{
+    display:grid;
+    grid-template-columns: 0.9fr 1.1fr;
+    gap: 70px;
+    align-items:center;
+  }
+  .about-img{
+    aspect-ratio: 4/5;
+    background: var(--charcoal-2);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    position: relative;
+    overflow:hidden;
+  }
+  .about-img img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+  }
+  .about-img::before{
+    content:"";
+    position:absolute; inset:0;
+    z-index: 1;
+    background-image:
+      repeating-linear-gradient(45deg, rgba(242,233,216,0.02) 0 2px, transparent 2px 18px);
+    pointer-events: none;
+  }
+  .about-copy p{ color: var(--cream-dim); margin: 0 0 18px; max-width: 520px; }
+  .about-copy p:first-of-type{ font-size: 1.15rem; color: var(--cream); }
+
+  .stat-row{
+    display:flex; gap: 44px; margin-top: 40px; flex-wrap:wrap;
+  }
+  .stat b{
+    display:block; font-family: var(--serif); font-size: 1.8rem; color: var(--gold-bright);
+  }
+  .stat span{ font-family: var(--mono); font-size: 0.7rem; letter-spacing:0.08em; text-transform:uppercase; color: var(--cream-dim); }
+
+  /* ---------- MENU ---------- */
+  .menu-tabs{
+    display:flex; gap: 10px; margin-bottom: 50px; flex-wrap: wrap;
+  }
+  .menu-tab{
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 10px 18px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    cursor:pointer;
+    background: none;
+    color: var(--cream-dim);
+    transition: all .3s ease;
+  }
+  .menu-tab:hover{ color: var(--cream); border-color: var(--gold); }
+  .menu-tab.active{
+    background: var(--gold);
+    border-color: var(--gold);
+    color: var(--charcoal);
+  }
+
+  .menu-panel{ display:none; }
+  .menu-panel.active{ display:block; animation: fadein .5s ease; }
+  @keyframes fadein{ from{ opacity:0; transform: translateY(8px);} to{ opacity:1; transform:translateY(0);} }
+
+  .menu-list{ display:flex; flex-direction:column; }
+  .menu-item{
+    display:flex;
+    align-items: baseline;
+    gap: 12px;
+    padding: 26px 0;
+    border-bottom: 1px solid var(--line);
+    transition: padding-left .3s ease;
+  }
+  .menu-item:hover{ padding-left: 10px; }
+  .menu-item:first-child{ border-top: 1px solid var(--line); }
+
+  .mi-thumb{
+    width: 64px;
+    height: 64px;
+    flex: 0 0 64px;
+    align-self: center;
+    border-radius: 4px;
+    overflow: hidden;
+    border: 1px solid var(--line);
+  }
+  .mi-thumb img{
+    width:100%; height:100%;
+    object-fit: cover;
+    object-position: center;
+    display:block;
+  }
+
+  .mi-name{
+    font-family: var(--serif);
+    font-size: 1.25rem;
+    white-space: nowrap;
+  }
+  .mi-leader{
+    flex:1;
+    border-bottom: 1px dotted var(--line);
+    transform: translateY(-6px);
+  }
+  .mi-price{
+    font-family: var(--mono);
+    font-size: 1rem;
+    color: var(--gold-bright);
+    white-space: nowrap;
+  }
+  .mi-desc{
+    flex-basis: 100%;
+    color: var(--cream-dim);
+    font-size: 0.92rem;
+    margin-top: 6px;
+    max-width: 560px;
+  }
+  .mi-tag{
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--olive);
+    border: 1px solid var(--olive);
+    border-radius: 999px;
+    padding: 2px 8px;
+    margin-left: 8px;
+    transform: translateY(-2px);
+    display:inline-block;
+  }
+
+  /* ---------- GALLERY ---------- */
+  .gallery{ background: var(--charcoal-2); }
+  .gallery-grid{
+    display:grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: 220px;
+    gap: 14px;
+  }
+  .gallery-grid > div:nth-child(1){ grid-column: span 2; grid-row: span 2; }
+  .gallery-grid > div:nth-child(4){ grid-column: span 2; }
+  .gallery-grid > div:nth-child(6){ grid-row: span 2; }
+
+  .g-item{
+    position:relative;
+    overflow:hidden;
+    border-radius: 4px;
+    border: 1px solid var(--line);
+    background: var(--charcoal-2);
+    cursor: pointer;
+  }
+  .g-item img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+    transition: transform .5s ease;
+  }
+  .g-item span{
+    position: absolute;
+    left: 12px; bottom: 12px;
+    z-index:2;
+    color: var(--cream);
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    opacity: 0;
+    transition: opacity .4s ease;
+  }
+  .g-item::after{
+    content:"";
+    position:absolute; inset:0;
+    background: rgba(23,19,15,0);
+    transition: background .4s ease;
+  }
+  .g-item:hover::after{ background: rgba(23,19,15,0.4); }
+  .g-item:hover span{ opacity: 1; }
+  .g-item:hover img{ transform: scale(1.08); }
+
+  /* ---------- VISIT / CONTACT ---------- */
+  .visit-grid{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 70px;
+  }
+  .info-block{ margin-bottom: 34px; }
+  .info-block h3{
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-family: var(--mono);
+    color: var(--gold-bright);
+    margin-bottom: 10px;
+    font-weight: 500;
+  }
+  .info-block p{ color: var(--cream-dim); margin: 4px 0; }
+
+  .map-box{
+    margin-top: 34px;
+    aspect-ratio: 16/10;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    background: repeating-linear-gradient(45deg, rgba(242,233,216,0.03) 0 2px, transparent 2px 20px), var(--charcoal-2);
+    display:flex; align-items:center; justify-content:center;
+    color: var(--cream-dim);
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  form{ display:flex; flex-direction:column; gap: 20px; }
+  .field{ display:flex; flex-direction:column; gap: 8px; }
+  .field label{
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--cream-dim);
+  }
+  .field input, .field select, .field textarea{
+    background: var(--charcoal-2);
+    border: 1px solid var(--line);
+    color: var(--cream);
+    font-family: var(--sans);
+    font-size: 0.95rem;
+    padding: 13px 14px;
+    border-radius: 2px;
+    transition: border-color .3s ease;
+  }
+  .field input:focus, .field select:focus, .field textarea:focus{
+    outline:none;
+    border-color: var(--gold);
+  }
+  .field-row{ display:grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  textarea{ resize: vertical; min-height: 100px; font-family: var(--sans); }
+
+  .form-msg{
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    color: var(--gold-bright);
+    min-height: 20px;
+  }
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    border-top: 1px solid var(--line);
+    padding: 50px 0 34px;
+  }
+  .footer-grid{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    flex-wrap: wrap;
+    gap: 30px;
+  }
+  .footer-logo{ font-family: var(--serif); font-size: 1.4rem; }
+  .footer-links{ display:flex; gap: 26px; list-style:none; padding:0; margin:0; }
+  .footer-links a{ font-size: 0.82rem; color: var(--cream-dim); transition: color .3s ease; }
+  .footer-links a:hover{ color: var(--gold-bright); }
+  .footer-bottom{
+    margin-top: 34px;
+    padding-top: 24px;
+    border-top: 1px solid var(--line);
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.05em;
+    color: var(--cream-dim);
+    text-transform: uppercase;
+  }
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width: 900px){
+    .about-grid, .visit-grid{ grid-template-columns: 1fr; gap: 44px; }
+    .gallery-grid{ grid-template-columns: repeat(2,1fr); grid-auto-rows: 170px; }
+    .gallery-grid > div:nth-child(1){ grid-column: span 2; grid-row: span 1; }
+    .gallery-grid > div:nth-child(6){ grid-row: span 1; }
+  }
+
+  @media (max-width: 760px){
+    .nav-links, .nav-cta{ display:none; }
+    .hamburger{ display:flex; }
+    section{ padding: 84px 0; }
+    .field-row{ grid-template-columns: 1fr; }
+    .menu-item{ flex-wrap: wrap; }
+    .mi-leader{ display:none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ================= HEADER ================= -->
+<header id="siteHeader">
+  <nav class="wrap">
+    <a href="#top" class="logo" aria-label="Lion Kitchen home">
+      <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <circle cx="24" cy="24" r="10" stroke="#e3a94f" stroke-width="1.4"/>
+        <g stroke="#c98a34" stroke-width="1.4" stroke-linecap="round">
+          <line x1="24" y1="2" x2="24" y2="9"/>
+          <line x1="24" y1="39" x2="24" y2="46"/>
+          <line x1="2" y1="24" x2="9" y2="24"/>
+          <line x1="39" y1="24" x2="46" y2="24"/>
+          <line x1="8" y1="8" x2="13" y2="13"/>
+          <line x1="35" y1="35" x2="40" y2="40"/>
+          <line x1="40" y1="8" x2="35" y2="13"/>
+          <line x1="13" y1="35" x2="8" y2="40"/>
+        </g>
+      </svg>
+      Lion Kitchen
+    </a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#menu">Menu</a></li>
+      <li><a href="#gallery">Gallery</a></li>
+      <li><a href="#visit">Visit</a></li>
+    </ul>
+    <a href="#visit" class="nav-cta">Reserve a Table</a>
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+</header>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#about">About</a>
+  <a href="#menu">Menu</a>
+  <a href="#gallery">Gallery</a>
+  <a href="#visit">Visit</a>
+</div>
+
+<!-- ================= HERO ================= -->
+<section class="hero" id="top">
+  <div class="hero-bg">
+    <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1920&q=80" alt="Wood-fired dish plated at Lion Kitchen" loading="eager">
+  </div>
+  <svg class="rays" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <g stroke="#c98a34" stroke-width="0.6" opacity="0.6">
+      <!-- generated radiating lines -->
+      <script>
+        // fallback for browsers that don't render inline svg script — lines added below manually
+      </script>
+    </g>
+    <g stroke="#c98a34" stroke-width="0.6" opacity="0.55">
+      <line x1="200" y1="200" x2="200" y2="10"/>
+      <line x1="200" y1="200" x2="200" y2="390"/>
+      <line x1="200" y1="200" x2="10" y2="200"/>
+      <line x1="200" y1="200" x2="390" y2="200"/>
+      <line x1="200" y1="200" x2="333" y2="67"/>
+      <line x1="200" y1="200" x2="67" y2="333"/>
+      <line x1="200" y1="200" x2="333" y2="333"/>
+      <line x1="200" y1="200" x2="67" y2="67"/>
+      <line x1="200" y1="200" x2="278" y2="30"/>
+      <line x1="200" y1="200" x2="122" y2="370"/>
+      <line x1="200" y1="200" x2="30" y2="122"/>
+      <line x1="200" y1="200" x2="370" y2="278"/>
+      <line x1="200" y1="200" x2="122" y2="30"/>
+      <line x1="200" y1="200" x2="278" y2="370"/>
+      <line x1="200" y1="200" x2="370" y2="122"/>
+      <line x1="200" y1="200" x2="30" y2="278"/>
+    </g>
+    <circle cx="200" cy="200" r="80" stroke="#e3a94f" stroke-width="0.6" opacity="0.4" fill="none"/>
+    <circle cx="200" cy="200" r="140" stroke="#c98a34" stroke-width="0.4" opacity="0.25" fill="none"/>
+  </svg>
+
+  <div class="hero-inner">
+    <span class="eyebrow">San Francisco · Est. 2019</span>
+    <h1>Bold food.<br>No <em>half</em> measures.</h1>
+    <p class="sub">Wood-fired mains, sharp flavors, and a room that feels like it belongs to the neighborhood. Lion Kitchen is casual dining with real teeth.</p>
+    <div class="btn-row">
+      <a href="#menu" class="btn btn-solid">View Menu</a>
+      <a href="#visit" class="btn btn-outline">Reserve a Table</a>
+    </div>
+  </div>
+
+  <div class="scroll-cue">Scroll</div>
+</section>
+
+<!-- ================= ABOUT ================= -->
+<section class="about" id="about">
+  <div class="wrap about-grid">
+    <div class="about-img reveal">
+      <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=900&q=80" alt="Lion Kitchen dining room interior" loading="lazy">
+    </div>
+    <div class="about-copy reveal">
+      <span class="eyebrow">Our story</span>
+      <h2 style="margin: 14px 0 22px;">Cooked with intent, served without pretense.</h2>
+      <p>Lion Kitchen opened on a quiet corner in San Francisco with one idea: food should have a point of view. Our wood-fired oven runs all day, our sauces take three, and nothing leaves the pass without someone tasting it first.</p>
+      <p>We work with small farms up and down the coast, change the menu with the seasons, and keep the room loud in the best way — full tables, open kitchen, no white tablecloths.</p>
+      <div class="stat-row">
+        <div class="stat"><b>6+</b><span>Years running</span></div>
+        <div class="stat"><b>40</b><span>Seats, always full</span></div>
+        <div class="stat"><b>12</b><span>Local farm partners</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= MENU ================= -->
+<section id="menu">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Eat</span>
+      <h2>The Menu</h2>
+    </div>
+
+    <div class="menu-tabs reveal" role="tablist" aria-label="Menu categories">
+      <button class="menu-tab active" data-tab="starters" role="tab" aria-selected="true">Starters</button>
+      <button class="menu-tab" data-tab="mains" role="tab" aria-selected="false">Mains</button>
+      <button class="menu-tab" data-tab="desserts" role="tab" aria-selected="false">Desserts</button>
+      <button class="menu-tab" data-tab="drinks" role="tab" aria-selected="false">Drinks</button>
+    </div>
+
+    <div class="menu-panel active" id="starters" role="tabpanel">
+      <div class="menu-list">
+        <div class="menu-item">
+          <div class="mi-thumb"><img src="https://images.unsplash.com/photo-1432139509613-5c4255815697?auto=format&fit=crop&w=200&q=80" alt="Charred Octopus" loading="lazy"></div>
+          <span class="mi-name">Charred Octopus</span>
+          <span class="mi-leader"></span>
+          <span class="mi-price">$19</span>
+          <span class="mi-desc">Smoked paprika, fingerling potato, salsa verde, lemon.</span>
+        </div>
+        <div class="menu-item">
+          <div class="mi-thumb"><img src="https://images.unsplash.com/photo-1556040220-4096d522378d?auto=format&fit=crop&w=200&q=80" alt="Burrata" loading="lazy"></div>
+          <span class="mi-name">Burrata<span class="mi-tag">V</span></span>
+          <span class="mi-leader"></span>
+          <span class="mi-price">$16</span>
+          <span class="mi-desc">Heirloom tomato, basil oil, aged balsamic, sourdough crumb.</span>
+        </div>
+        <div class="menu-item">
+          <div class="mi-thumb"><img src="https://images.unsplash.com/photo-1550367363-ea12860cc124?auto=format&fit=crop&w=200&q=80" alt="Crispy Pork Belly" loading="lazy"></div>
+          <span class="mi-name">Crispy Pork Belly</span>
+          <span class="mi-leader"></span>
+          <span class="mi-price">$17</span>
+          <span class="mi-desc">Fresno chili caramel, pickled shallot, herbs.</span>
+        </div>
+        <div class="menu-item">
+          <div class="mi-thumb"><img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=200&q=80" alt="Roasted Beets" loading="lazy"></div>
+          <span class="mi-name">Roasted Beets<span class="mi-tag">V</span></span>
+          <span class="mi-leader"></span>
+          <span class="mi-price">$14</span>
+          <span class="mi-desc">Whipped goat cheese, pistachio, citrus, mint.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="menu-panel" id="mains" role="tabpanel">
+      <div class="menu-list">
+        <div class="menu-item">
+          <div class="mi-thumb"><img src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=200&q=80" alt="Wood-Fired Half Chicken" loading="lazy"></div>
+          <span class="mi-name">Wood-Fired Half Chicken</span>
+          <span class="mi-leader"></span>
+          <span class="mi-price">$28</span>
+          <span class="mi-desc">Charred lemon, chimichurri, fire-roasted vegetables.</span>
+        </div>
+        <div class="menu-item">
+          <div class="mi-thumb"><img src="https://images.unsplash.com/photo-1457460866886-40ef8d4b42a0?auto=format&fit=crop&w=200&q=80" alt="Dry-Aged Ribeye" loading="lazy"></div>
+          <span class="mi-name">Dry-Aged Ribeye</span>
+          <span class="mi-leader"></span>
+          <span class="mi-price">$46</span>
+          <span class="mi-desc">Bone marrow butter, roasted garlic, herb jus.</span>
+        </div>
+        <div class="menu-item">
+          <div class="mi-thumb"><img src="https://images.unsplash.com/photo-1467003909585-2f8a72700288?auto=format&fit=crop&w=200&q=80" alt="King Salmon" loading="lazy"></div>
+          <span class="mi-name">King Salmon</span>
+          <span class="mi-leader"></span>
+          <span class="mi-price">$32</span>
+          <span class="mi-desc">Charred scallion, ginger broth, forbidden rice.</span>
+        </div>
+        <div class="menu-item">
+          <div class="mi-thumb"><img src="https://images.unsplash.com/photo-1466978913421-dad2ebd01d17?auto=format&fit=crop&w=200&q=80" alt="Wild Mushroom Risotto" loading="lazy"></div>
+          <span class="mi-name">Wild Mushroom Risotto<span class="mi-tag">V</span></span>
+          <span class="mi-leader"></span>
+          <span class="mi-price">$24</span>
+          <span class="mi-desc">Parmesan, black truffle, crisped sage.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="menu-panel" id="desserts" role="tabpanel">
+      <div class="menu-list">
+        <div class="menu-item">
+          <div class="mi-thumb"><img src="https://images.unsplash.com/photo-1482049016688-2d3e1b311543?auto=format&fit=crop&w=200&q=80" alt="Basque Cheesecake" loading="lazy"></div>
+          <span class="mi-name">Basque Cheesecake</span>
+          <span class="mi-leader"></span>
+          <span class="mi-price">$11</span>
+          <span class="mi-desc">Burnt top, macerated berries, cream.</span>
+        </div>
+        <div class="menu-item">
+          <div class="mi-thumb"><img src="https://images.unsplash.com/photo-1502998070258-dc1338445ac2?auto=format&fit=crop&w=200&q=80" alt="Olive Oil Cake" loading="lazy"></div>
+          <span class="mi-name">Olive Oil Cake<span class="mi-tag">V</span></span>
+          <span class="mi-leader"></span>
+          <span class="mi-price">$10</span>
+          <span class="mi-desc">Citrus glaze, whipped mascarpone, sea salt.</span>
+        </div>
+        <div class="menu-item">
+          <div class="mi-thumb"><img src="https://images.unsplash.com/photo-1600891964599-f61ba0e24092?auto=format&fit=crop&w=200&q=80" alt="Affogato" loading="lazy"></div>
+          <span class="mi-name">Affogato</span>
+          <span class="mi-leader"></span>
+          <span class="mi-price">$9</span>
+          <span class="mi-desc">Espresso, vanilla bean gelato, cocoa nib.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="menu-panel" id="drinks" role="tabpanel">
+      <div class="menu-list">
+        <div class="menu-item">
+          <div class="mi-thumb"><img src="https://images.unsplash.com/photo-1651440204227-a9a5b9d19712?auto=format&fit=crop&w=200&q=80" alt="Smoked Old Fashioned" loading="lazy"></div>
+          <span class="mi-name">Smoked Old Fashioned</span>
+          <span class="mi-leader"></span>
+          <span class="mi-price">$16</span>
+          <span class="mi-desc">Bourbon, demerara, applewood smoke, orange.</span>
+        </div>
+        <div class="menu-item">
+          <div class="mi-thumb"><img src="https://images.unsplash.com/photo-1476224203421-9ac39bcb3327?auto=format&fit=crop&w=200&q=80" alt="Lion's Paloma" loading="lazy"></div>
+          <span class="mi-name">Lion's Paloma</span>
+          <span class="mi-leader"></span>
+          <span class="mi-price">$14</span>
+          <span class="mi-desc">Blanco tequila, grapefruit, chili salt rim.</span>
+        </div>
+        <div class="menu-item">
+          <div class="mi-thumb"><img src="https://images.unsplash.com/photo-1556040220-4096d522378d?auto=format&fit=crop&w=200&q=80" alt="House Red / White wine" loading="lazy"></div>
+          <span class="mi-name">House Red / White</span>
+          <span class="mi-leader"></span>
+          <span class="mi-price">$13</span>
+          <span class="mi-desc">Rotating small-production California selection.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= GALLERY ================= -->
+<section class="gallery" id="gallery">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Look</span>
+      <h2>Inside Lion Kitchen</h2>
+    </div>
+    <div class="gallery-grid reveal">
+      <div class="g-item">
+        <img src="https://images.unsplash.com/photo-1667388969250-1c7220bf3f37?auto=format&fit=crop&w=1000&q=80" alt="Open dining area at Lion Kitchen" loading="lazy">
+        <span>Open kitchen</span>
+      </div>
+      <div class="g-item">
+        <img src="https://images.unsplash.com/photo-1432139509613-5c4255815697?auto=format&fit=crop&w=700&q=80" alt="Plated dish close-up" loading="lazy">
+        <span>Plated dish</span>
+      </div>
+      <div class="g-item">
+        <img src="https://images.unsplash.com/photo-1583354608715-177553a4035e?auto=format&fit=crop&w=700&q=80" alt="Seating area at Lion Kitchen" loading="lazy">
+        <span>Bar seating</span>
+      </div>
+      <div class="g-item">
+        <img src="https://images.unsplash.com/photo-1651440204227-a9a5b9d19712?auto=format&fit=crop&w=1000&q=80" alt="Wood-fired dishes fresh from the oven" loading="lazy">
+        <span>Wood-fired oven</span>
+      </div>
+      <div class="g-item">
+        <img src="https://images.unsplash.com/photo-1667388968964-4aa652df0a9b?auto=format&fit=crop&w=700&q=80" alt="Lion Kitchen dining room" loading="lazy">
+        <span>Dining room</span>
+      </div>
+      <div class="g-item">
+        <img src="https://images.unsplash.com/photo-1600891964599-f61ba0e24092?auto=format&fit=crop&w=700&q=80" alt="Drinks and small plates at the bar" loading="lazy">
+        <span>Cocktail pour</span>
+      </div>
+      <div class="g-item">
+        <img src="https://images.unsplash.com/photo-1476224203421-9ac39bcb3327?auto=format&fit=crop&w=700&q=80" alt="Finished plate ready to be served" loading="lazy">
+        <span>Chef at pass</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= VISIT / CONTACT ================= -->
+<section id="visit">
+  <div class="wrap visit-grid">
+    <div class="reveal">
+      <span class="eyebrow">Visit</span>
+      <h2 style="margin:14px 0 34px;">Find Us</h2>
+
+      <div class="info-block">
+        <h3>Address</h3>
+        <p>412 Fillmore Street</p>
+        <p>San Francisco, CA 94117</p>
+      </div>
+      <div class="info-block">
+        <h3>Hours</h3>
+        <p>Tue – Thu · 5:00pm – 10:00pm</p>
+        <p>Fri – Sat · 5:00pm – 11:00pm</p>
+        <p>Sun · 5:00pm – 9:00pm · Closed Mondays</p>
+      </div>
+      <div class="info-block">
+        <h3>Contact</h3>
+        <p>(415) 555‑0148</p>
+        <p>hello@lionkitchen-sf.com</p>
+      </div>
+
+      <div class="map-box">[ Map embed placeholder — 412 Fillmore St, SF ]</div>
+    </div>
+
+    <div class="reveal">
+      <span class="eyebrow">Reserve</span>
+      <h2 style="margin:14px 0 34px;">Book a Table</h2>
+      <form id="reserveForm">
+        <div class="field-row">
+          <div class="field">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" required>
+          </div>
+          <div class="field">
+            <label for="phone">Phone</label>
+            <input type="tel" id="phone" name="phone" required>
+          </div>
+        </div>
+        <div class="field">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label for="date">Date</label>
+            <input type="date" id="date" name="date" required>
+          </div>
+          <div class="field">
+            <label for="party">Party Size</label>
+            <select id="party" name="party" required>
+              <option value="">Select</option>
+              <option>1</option><option>2</option><option>3</option>
+              <option>4</option><option>5</option><option>6+</option>
+            </select>
+          </div>
+        </div>
+        <div class="field">
+          <label for="notes">Notes (optional)</label>
+          <textarea id="notes" name="notes" placeholder="Allergies, special occasions, seating preference..."></textarea>
+        </div>
+        <button type="submit" class="btn btn-solid" style="border:none; cursor:pointer;">Request Reservation</button>
+        <p class="form-msg" id="formMsg" role="status"></p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-logo">Lion Kitchen</div>
+      <ul class="footer-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#menu">Menu</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+        <li><a href="#visit">Visit</a></li>
+      </ul>
+      <ul class="footer-links">
+        <li><a href="#" aria-label="Instagram">Instagram</a></li>
+        <li><a href="#" aria-label="Facebook">Facebook</a></li>
+        <li><a href="#" aria-label="Yelp">Yelp</a></li>
+      </ul>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Lion Kitchen, San Francisco</span>
+      <span>412 Fillmore St · (415) 555‑0148</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // ---- Nav scroll state ----
+  const header = document.getElementById('siteHeader');
+  window.addEventListener('scroll', () => {
+    header.classList.toggle('scrolled', window.scrollY > 40);
+  }, { passive: true });
+
+  // ---- Mobile menu ----
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  hamburger.addEventListener('click', () => {
+    const open = hamburger.classList.toggle('open');
+    mobileMenu.classList.toggle('open', open);
+    hamburger.setAttribute('aria-expanded', open);
+    document.body.style.overflow = open ? 'hidden' : '';
+  });
+  mobileMenu.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      hamburger.classList.remove('open');
+      mobileMenu.classList.remove('open');
+      hamburger.setAttribute('aria-expanded', false);
+      document.body.style.overflow = '';
+    });
+  });
+
+  // ---- Scroll reveal ----
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  revealEls.forEach(el => io.observe(el));
+
+  // ---- Menu tabs ----
+  const tabs = document.querySelectorAll('.menu-tab');
+  const panels = document.querySelectorAll('.menu-panel');
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      tabs.forEach(t => { t.classList.remove('active'); t.setAttribute('aria-selected','false'); });
+      panels.forEach(p => p.classList.remove('active'));
+      tab.classList.add('active');
+      tab.setAttribute('aria-selected','true');
+      document.getElementById(tab.dataset.tab).classList.add('active');
+    });
+  });
+
+  // ---- Reservation form (front-end only, no backend wired) ----
+  const form = document.getElementById('reserveForm');
+  const formMsg = document.getElementById('formMsg');
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    formMsg.textContent = 'Thanks — your request has been received. We\'ll confirm by phone shortly.';
+    form.reset();
+    setTimeout(() => { formMsg.textContent = ''; }, 6000);
+  });
+
+  // ---- Min date = today ----
+  document.getElementById('date').min = new Date().toISOString().split('T')[0];
+</script>
+
+</body>
+</html>
